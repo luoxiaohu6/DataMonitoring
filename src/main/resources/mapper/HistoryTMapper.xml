@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shiyanshi.dashuju.Mapper.HistoryTMapper">
+
+    <resultMap id="HistoryT" type="com.shiyanshi.dashuju.Pojo.Hour1">
+        <id column="Equipment_name_hour" property="Equipment_name_hour"/>
+        <id column="Monitor_name_hour" property="Monitor_name_hour"/>
+        <id column="Time_hour" property="Time_hour"/>
+        <result column="Vaule_hour" property="Vaule_hour"/>
+
+    </resultMap>
+
+    <!--&gt;表示 > ,&lt; 表示<  -->
+    <select id="findHistoryHour" resultType="com.shiyanshi.dashuju.Pojo.Hour1" resultMap="HistoryT">
+        select Hour1.Vaule_hour,Hour1.Vaule_hour from Hour1
+        where Hour1.Equipment_name_hour = #{equipment_name_hour}
+          and Hour1.Monitor_name_hour = #{monitor_name_hour}
+          and date_format(Time_hour,'%Y-%m-%d %h:%m:%s') &gt;= #{Time_hour,jdbcType=TIMESTAMP}
+          and date_format(Time_hour,'%Y-%m-%d %h:%m:%s') &lt;= #{Time_hour1,jdbcType=TIMESTAMP}
+    </select>
+
+    <select id="findHistoryMinute" parameterType="com.shiyanshi.dashuju.Pojo.Minute1" resultMap="HistoryT">
+        select Minute1.Vaule_min,Minute1.Vaule_min from Minute1
+        where Minute1.Equipment_name_min= #{equipment_name_min}
+          and Minute1.Monitor_name_min = #{monitor_name_min}
+          and date_format(Time_min,'%Y-%m-%d %h:%m:%s') &gt;= #{Time_min,jdbcType=TIMESTAMP}
+          and date_format(Time_min,'%Y-%m-%d %h:%m:%s') &lt;= #{Time_min1,jdbcType=TIMESTAMP}
+    </select>
+
+    <select id="findHistoryS" resultType="com.shiyanshi.dashuju.Pojo.Equipment_message" resultMap="HistoryT">
+        select Equipment_message.Vaule,Equipment_message.Time1 from Equipment_message
+        where Equipment_message.Mequipment_name = #{mequipment_name}
+          and Equipment_message.Monitor_name = #{monitor_name}
+          and date_format(Time1,'%Y-%m-%d %h:%m:%s') &gt;= #{time1,jdbcType=TIMESTAMP}
+          and date_format(Time1,'%Y-%m-%d %h:%m:%s') &lt;= #{time2,jdbcType=TIMESTAMP}
+    </select>
+
+
+</mapper>

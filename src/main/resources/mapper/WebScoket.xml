@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shiyanshi.dashuju.Mapper.WebscoketMapper">
+    <resultMap id="AllTest" type="com.shiyanshi.dashuju.Pojo.Equipment_message">
+    <id column="Equipment_Main_id" property="Equipment_Main_id"/>
+    <id column="Monitor_id" property="Monitor_id"/>
+    <id column="Time1" property="Time1"/>
+    <result column="Monitor_name" property="Monitor_name"/>
+    <result column="Mequipment_name" property="Mequipment_name"/>
+    <result column="Vaule" property="Vaule"/>
+    </resultMap>
+
+    <select id="websocket" resultMap="AllTest" >
+        select Monitor_name,Vaule from Equipment_message where Mequipment_name =#{Mequipment_name}
+        AND Time1 = (select max(Time1) FROM Equipment_message where Mequipment_name = #{Mequipment_name})
+    </select>
+</mapper>

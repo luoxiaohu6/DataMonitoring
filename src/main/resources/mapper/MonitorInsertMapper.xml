@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shiyanshi.dashuju.Mapper.MonitorInsertMapper">
+
+    <resultMap id="AllTest" type="com.shiyanshi.dashuju.Pojo.Equipment_message">
+        <id column="Equipment_Main_id" property="Equipment_Main_id"/>
+        <id column="Monitor_id" property="Monitor_id"/>
+        <id column="Time1" property="Time1"/>
+        <result column="Monitor_name" property="Monitor_name"/>
+        <result column="Mequipment_name" property="Mequipment_name"/>
+        <result column="Vaule" property="Vaule"/>
+
+        <collection property="equipment_main" column="Id" ofType="com.shiyanshi.dashuju.Pojo.Equipment_Main">
+            <id column="Id" property="Idm"/>
+            <result column="Equipment_name" property="Equipment_name"/>
+        </collection>
+
+        <collection property="calculation" column="idnum" ofType="com.shiyanshi.dashuju.Pojo.Calculation">
+            <result column="Gateway" property="Gateway"/>
+            <result column="Access_name" property="Access_name"/>
+            <result column="MaxValue1" property="MaxValue1"/>
+            <result column="MinValue" property="MinValue"/>
+            <result column="StandardValue" property="StandardValue"/>
+            <result column="Formula" property="Formula"/>
+            <result column="Em_Equipment_name" property="Em_Equipment_name"/>
+            <result column="Em_Monitor_id" property="Em_Monitor_id"/>
+            <result column="Em_Equipment_name_id" property="Em_Equipment_name_id"/>
+            <result column="Em_Monitor_name" property="Em_Monitor_name"/>
+        </collection>
+
+        <collection property="main_monitor" column="Main_monitor_id" ofType="com.shiyanshi.dashuju.Pojo.Main_Monitor">
+            <id column="Main_monitor_id" property="Main_monitor_id"/>
+            <result column="Main_monitor_name" property="Main_monitor_name"/>
+        </collection>
+
+    </resultMap>
+
+
+    <insert id="InsertDataMonitor" parameterType="com.shiyanshi.dashuju.Pojo.Calculation">
+        insert into Calculation(Em_Equipment_name,Em_Equipment_name_id,Gateway,Access_name,Em_Monitor_name,Em_Monitor_id,MaxValue1,MinValue,StandardValue,Formula)
+        values (#{em_Equipment_name},
+                (select Equipment_Main.Id from Equipment_Main where Equipment_Main.Equipment_name=#{em_Equipment_name}),
+                #{gateway},#{access_name},#{em_Monitor_name},
+                (select Monitor_message.Main_monitor_id from Monitor_message where Monitor_message.Main_monitor_name = #{em_Monitor_name}),
+               #{maxValue1},#{minValue},#{standardValue},#{formula})
+    </insert>
+
+
+    <update id="UpdateDataMonitor" parameterType="com.shiyanshi.dashuju.Pojo.Calculation">
+        update Calculation set Gateway = #{gateway},Access_name = #{access_name},MaxValue1 = #{maxValue},MinValue = #{minValue},
+                               StandardValue = #{standardValue},Formula = #{formula}
+                               where Em_Equipment_name = #{em_Equipment_name} and Em_Monitor_name = #{em_Monitor_name}
+    </update>
+
+    <delete id="DelDataMonitor" parameterType="com.shiyanshi.dashuju.Pojo.Calculation">
+        delete from Calculation where Em_Monitor_name = #{em_Monitor_name} and Em_Equipment_name= #{em_Equipment_name}
+    </delete>
+
+    <delete id="DelDataMonitorE" parameterType="com.shiyanshi.dashuju.Pojo.Equipment_message">
+        delete from Equipment_message where Monitor_name = #{monitor_name} and Mequipment_name = #{mequipment_name}
+    </delete>
+
+</mapper>

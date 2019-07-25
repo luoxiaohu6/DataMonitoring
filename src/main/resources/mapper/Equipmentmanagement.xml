@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiyanshi.dashuju.Mapper.EquipmentmanageMapper">
+
+    <resultMap id="Alltest" type="com.shiyanshi.dashuju.Pojo.Equipment_type">
+        <id column="idEquipmenttype" property="idEquipmentType"/>
+        <result column="EquipmentTypeName" property="EquipmentTypeName"/>
+        <result column="EquipmentTypeDesc" property="EquipmentTypeDesc"/>
+        <collection property="equipment_main" javaType="com.shiyanshi.dashuju.Pojo.Equipment_Main">
+            <id column="Id" property="Idm"/>
+            <result column="Equipment_name" property="Equipment_name"/>
+            <result column="Describ" property="Describ"/>
+            <result column="Customer" property="Customer"/>
+            <result column="Agency" property="Agency"/>
+            <result property="ProductionDate" column="ProductionDate" jdbcType="TIMESTAMP"/>
+            <result column="Equipment_type" property="Equipment_type"/>
+        </collection>
+    </resultMap>
+    <sql id="basefirst">
+     Equipment_name,Equipment_type,Agency,Customer,ProductionDate,Describ
+ </sql>
+<!--浏览全部信息-->
+    <select id="MachinfindMain"   resultMap="Alltest">
+      select  <include refid="basefirst"/> from Equipment_Main
+    </select>
+
+    <select id="MachinByEquipment_name"   resultMap="Alltest">
+        select  <include refid="basefirst"/> from Equipment_Main where Equipment_name like concat('%',#{Equipment_name},'%')
+    </select>
+
+    <select id="MachinByEquipment_type"   resultMap="Alltest">
+        select  <include refid="basefirst"/> from Equipment_Main where Equipment_type like concat('%',#{Equipment_type},'%')
+    </select>
+
+
+    <select id="MachinByDescrib"   resultMap="Alltest">
+        select  <include refid="basefirst"/> from Equipment_Main where  Describ  like concat('%',#{Describ},'%')
+    </select>
+
+
+    <select id="MachinByProductionDate"   resultMap="Alltest">
+        select  <include refid="basefirst"/> from Equipment_Main where ProductionDate like concat('%',#{ProductionDate},'%')
+    </select>
+
+    <select id="MachinByCustomer"   resultMap="Alltest">
+        select  <include refid="basefirst"/> from Equipment_Mainwhere Customer like concat('%',#{Customer},'%')
+</select>
+
+    <select id="MachinByAgency"   resultMap="Alltest">
+        select  <include refid="basefirst"/> from Equipment_Main where Agency =#{Agency}
+    </select>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shiyanshi.dashuju.Mapper.TestUpdateMapper">
+
+    <resultMap id="Alltest" type="com.shiyanshi.dashuju.Pojo.Equipment_type">
+        <id column="idEquipmenttype" property="idEquipmentType"/>
+        <result column="EquipmentTypeName" property="EquipmentTypeName"/>
+        <result column="EquipmentTypeDesc" property="EquipmentTypeDesc"/>
+        <collection property="equipment_main" javaType="com.shiyanshi.dashuju.Pojo.Equipment_Main">
+            <id column="Id" property="Idm"/>
+            <result column="Equipment_name" property="Equipment_name"/>
+            <result column="Describ" property="Describ"/>
+            <result column="Customer" property="Customer"/>
+            <result column="Agency" property="Agency"/>
+            <result property="ProductionDate" column="ProductionDate" jdbcType="TIMESTAMP"/>
+            <result column="Equipment_type" property="Equipment_type"/>
+        </collection>
+    </resultMap>
+    <update id="Updatemessage" parameterType="com.shiyanshi.dashuju.Pojo.Equipment_type">
+        update  Equipment_type set EquipmentTypeName=#{EquipmentTypeName},EquipmentTypeDesc=#{EquipmentTypeDesc} where idEquipmentType=#{idEquipmentType}
+    </update>
+
+    <insert id="insertmessage" parameterType="com.shiyanshi.dashuju.Pojo.Equipment_type">
+        insert into Equipment_type(EquipmentTypeDesc,EquipmentTypeName,idEquipmentType) value (#{EquipmentTypeDesc},#{EquipmentTypeName},#{idEquipmentType})
+    </insert>
+
+    <delete id="deletemessage" parameterType="com.shiyanshi.dashuju.Pojo.Equipment_type">
+        delete from Equipment_type where idEquipmentType=#{idEquipmentType}
+    </delete>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiyanshi.dashuju.Mapper.MachineUpdateMapper">
+<resultMap id="Alltest" type="com.shiyanshi.dashuju.Pojo.Equipment_Main">
+    <id column="Id" property="Idm"/>
+    <result column="Equipment_name" property="Equipment_name"/>
+    <result column="Describ" property="Describ"/>
+    <result column="Customer" property="Customer"/>
+    <result column="Agency" property="Agency"/>
+    <result property="ProductionDate" column="ProductionDate" jdbcType="TIMESTAMP"/>
+    <result column="Equipment_type" property="Equipment_type"/>
+</resultMap>
+
+    <update id="UpdateMain" parameterType="com.shiyanshi.dashuju.Pojo.Equipment_Main">
+        update Equipment_Main  set Equipment_name=#{Equipment_name} ,Describ=#{Describ},ProductionDate=#{ProductionDate},Customer=#{Customer},Agency=#{Agency}  where Id=#{Id}
+    </update>
+
+
+
+    <delete id="deleteMain" parameterType="com.shiyanshi.dashuju.Pojo.Equipment_Main">
+       delete from Equipment_Main where Id =#{Id}
+    </delete>
+
+
+    <insert id="insertMain" parameterType="com.shiyanshi.dashuju.Pojo.Equipment_Main">
+        insert into Equipment_Main (Equipment_name,Describ,Agency,ProductionDate,Customer,Equipment_type) value (#{Equipment_name},#{Describ,jdbcType=VARCHAR},#{Agency,jdbcType=VARCHAR},#{ProductionDate},#{Customer},#{Equipment_type})
+    </insert>
+</mapper>

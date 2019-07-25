@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shiyanshi.dashuju.Mapper.UserLogin">
+
+    <select id="findUser" resultType="com.shiyanshi.dashuju.Pojo.User">
+        select * from Admin where Username = #{Username} and PassWord = #{PassWord}
+    </select>
+</mapper>

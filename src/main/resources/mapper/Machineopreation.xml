@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiyanshi.dashuju.Mapper.MachineMapper">
+
+    <resultMap id="Alltest" type="com.shiyanshi.dashuju.Pojo.Equipment_type">
+        <id column="idEquipmenttype" property="idEquipmentType"/>
+        <result column="EquipmentTypeName" property="EquipmentTypeName"/>
+        <result column="EquipmentTypeDesc" property="EquipmentTypeDesc"/>
+        <!--<collection property="equipment_main" javaType="com.shiyanshi.dashuju.Pojo.Equipment_Main">-->
+            <!--<id column="Id" property="_Idm"/>-->
+            <!--<result column="Equipment_name" property="equipment_name"/>-->
+            <!--<result column="Describe" property="Describe"/>-->
+            <!--<result column="Customer" property="Customer"/>-->
+            <!--<result column="Agency" property="Agency"/>-->
+            <!--<result property="ProductionDate" column="ProductionDate"/>-->
+            <!--<result column="Equipment_type" property="Equipment_type"/>-->
+        <!--</collection>-->
+    </resultMap>
+<sql id="basesql">
+SELECT * from Equipment_type
+</sql>
+
+<!--机器类型查询全部-->
+<select id="MachinfindAll" resultMap="Alltest">
+    <include refid="basesql"/>
+</select>
+
+
+    
+  <select id="MachinByid"  resultMap="Alltest">
+      <include refid="basesql"/>where idEquipmentType= #{value}
+  </select>
+
+
+    <select id="MachinByEquipmentTypeName"  resultMap="Alltest">
+        <include refid="basesql"/> where EquipmentTypeName like concat('%',#{EquipmentTypeName},'%')
+    </select>
+
+
+    <select id="MachinByEquipmentTypeDesc"  resultMap="Alltest">
+        <include refid="basesql"/> where EquipmentTypeDesc like concat('%',#{EquipmentTypeDesc},'%')
+    </select>
+</mapper>

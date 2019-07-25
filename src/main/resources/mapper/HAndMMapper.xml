@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shiyanshi.dashuju.Mapper.HAndMMapper">
+
+    <resultMap id="History" type="com.shiyanshi.dashuju.Pojo.Equipment_message">
+        <id column="Equipment_Main_id" property="Equipment_Main_id"/>
+        <id column="Monitor_id" property="Monitor_id"/>
+        <id column="Time1" property="Time1"/>
+        <result column="Monitor_name" property="Monitor_name"/>
+        <result column="Mequipment_name" property="Mequipment_name"/>
+        <result column="Vaule" property="Vaule"/>
+
+        <collection property="equipment_main" column="Id" ofType="com.shiyanshi.dashuju.Pojo.Equipment_Main">
+            <id column="Id" property="Idm"/>
+            <result column="Equipment_name" property="Equipment_name"/>
+        </collection>
+
+        <collection property="calculation" column="idc" ofType="com.shiyanshi.dashuju.Pojo.Calculation">
+            <result column="Gateway" property="Gateway"/>
+            <result column="Access_name" property="Access_name"/>
+            <result column="MaxValue1" property="MaxValue1"/>
+            <result column="MinValue" property="MinValue"/>
+            <result column="StandardValue" property="StandardValue"/>
+            <result column="Formula" property="Formula"/>
+            <result column="Em_Equipment_name" property="Em_Equipment_name"/>
+            <result column="Em_Monitor_id" property="Em_Monitor_id"/>
+            <result column="Em_Equipment_name_id" property="Em_Equipment_name_id"/>
+            <result column="Em_Monitor_name" property="Em_Monitor_name"/>
+        </collection>
+
+        <collection property="main_monitor" column="Main_monitor_id" ofType="com.shiyanshi.dashuju.Pojo.Main_Monitor">
+            <id column="Main_monitor_id" property="Main_monitor_id"/>
+            <result column="Main_monitor_name" property="Main_monitor_name"/>
+        </collection>
+
+    </resultMap>
+
+    <select id="findId" resultType="com.shiyanshi.dashuju.Pojo.HAndM">
+        SELECT distinct Equipment_message.Equipment_Main_id,Equipment_message.Monitor_id FROM Equipment_message
+    </select>
+
+    <select id="findIdM" resultType="com.shiyanshi.dashuju.Pojo.HAndMM">
+        SELECT distinct Equipment_message.Equipment_Main_id,Equipment_message.Monitor_id FROM Equipment_message
+    </select>
+    
+    <select id="findMax" resultType="com.shiyanshi.dashuju.Pojo.Equipment_messageH">
+        SELECT * from
+        (select *  from Equipment_message
+        WHERE Equipment_message.Monitor_id= #{monitor_id}
+        and Equipment_message.Equipment_Main_id = #{equipment_Main_id} order by Time1 desc) a
+        ORDER BY Vaule desc LIMIT 1200
+    </select>
+
+    <select id="findMaxM" resultType="com.shiyanshi.dashuju.Pojo.Equipment_messageM">
+        SELECT * from
+            (select *  from Equipment_message
+             WHERE Equipment_message.Monitor_id= #{monitor_id}
+               and Equipment_message.Equipment_Main_id = #{equipment_Main_id} order by Time1 desc) a
+        ORDER BY Vaule desc LIMIT 60
+    </select>
+
+    <insert id="InsertHour" parameterType="com.shiyanshi.dashuju.Pojo.Equipment_messageH">
+        insert into Hour1(Equipment_name_hour,Monitor_name_hour,Time_hour,Vaule_hour)
+        values (#{mequipment_name},#{monitor_name},#{time1},#{vaule})
+    </insert>
+
+    <insert id="InsertMinute" parameterType="com.shiyanshi.dashuju.Pojo.Equipment_messageM">
+        insert into Minute1(Equipment_name_min,Monitor_name_min,Time_min,Vaule_min)
+        values (#{mequipment_name},#{monitor_name},#{time1},#{vaule})
+    </insert>
+
+    <select id="findOne" resultType="com.shiyanshi.dashuju.Pojo.Equipment_messageS">
+        select Time1 from Equipment_message where Equipment_Main_id =#{equipment_Main_id} AND Monitor_id = #{monitor_id}
+        AND Time1 = (select max(Time1) FROM Equipment_message where Equipment_Main_id = #{equipment_Main_id} AND Monitor_id = #{monitor_id})
+    </select>
+
+    <select id="findOneM" resultType="com.shiyanshi.dashuju.Pojo.Equipment_messageSS">
+        select Time1 from Equipment_message where Equipment_Main_id =#{equipment_Main_id} AND Monitor_id = #{monitor_id}
+        AND Time1 = (select max(Time1) FROM Equipment_message where Equipment_Main_id = #{equipment_Main_id} AND Monitor_id = #{monitor_id})
+    </select>
+</mapper>

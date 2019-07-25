@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shiyanshi.dashuju.Mapper.TestMapper">
+
+    <resultMap id="AllTest" type="com.shiyanshi.dashuju.Pojo.Equipment_message">
+        <id column="Equipment_Main_id" property="Equipment_Main_id"/>
+        <id column="Monitor_id" property="Monitor_id"/>
+        <id column="Time1" property="Time1"/>
+        <result column="Monitor_name" property="Monitor_name"/>
+        <result column="Mequipment_name" property="Mequipment_name"/>
+        <result column="Vaule" property="Vaule"/>
+
+        <collection property="equipment_main" column="Id" ofType="com.shiyanshi.dashuju.Pojo.Equipment_Main">
+            <id column="Id" property="Idm"/>
+            <result column="Equipment_name" property="Equipment_name"/>
+        </collection>
+
+        <collection property="calculation" column="idc" ofType="com.shiyanshi.dashuju.Pojo.Calculation">
+            <result column="Gateway" property="Gateway"/>
+            <result column="Access_name" property="Access_name"/>
+            <result column="MaxValue1" property="MaxValue1"/>
+            <result column="MinValue" property="MinValue"/>
+            <result column="StandardValue" property="StandardValue"/>
+            <result column="Formula" property="Formula"/>
+            <result column="Em_Equipment_name" property="Em_Equipment_name"/>
+            <result column="Em_Monitor_id" property="Em_Monitor_id"/>
+            <result column="Em_Equipment_name_id" property="Em_Equipment_name_id"/>
+            <result column="Em_Monitor_name" property="Em_Monitor_name"/>
+        </collection>
+
+        <collection property="main_monitor" column="Main_monitor_id" ofType="com.shiyanshi.dashuju.Pojo.Main_Monitor">
+            <id column="Main_monitor_id" property="Main_monitor_id"/>
+            <result column="Main_monitor_name" property="Main_monitor_name"/>
+        </collection>
+
+    </resultMap>
+
+    <sql id="Calculation">
+        select
+           Calculation.Em_Equipment_name ,Calculation.Gateway,Calculation.Access_name,
+           Calculation.Em_Monitor_name,Calculation.MaxValue1,Calculation.MinValue,Calculation.Formula,
+           Calculation.StandardValue,Calculation.Formula
+        from Calculation  WHERE
+    </sql>
+
+    <!--查询所有-->
+    <select id="findAll" resultType="com.shiyanshi.dashuju.Pojo.Equipment_message" resultMap="AllTest">
+        <include refid="Calculation"/>
+           1=1
+    </select>
+
+    <!--通过设备名查询-->
+    <select id="SelectByEquipmentMessage" resultType="com.shiyanshi.dashuju.Pojo.Equipment_message" resultMap="AllTest">
+        <include refid="Calculation"/>
+        Calculation.Em_Equipment_name = #{equipmentName}
+    </select>
+
+    <!--通过最大值查询-->
+    <select id="SelectByMaxValue" resultType="com.shiyanshi.dashuju.Pojo.Equipment_message" resultMap="AllTest">
+        <include refid="Calculation"/>
+       Calculation.MaxValue1 =#{maxValue}
+    </select>
+
+    <!--通过最小值查询-->
+    <select id="SelectByMinValue" resultType="com.shiyanshi.dashuju.Pojo.Equipment_message" resultMap="AllTest">
+        <include refid="Calculation"/>
+        Calculation.MinValue = #{minValue}
+    </select>
+
+    <!--通过网关查找信息-->
+    <select id="SelectByDNS" resultMap="AllTest">
+        <include refid="Calculation"/>
+        Calculation.Gateway=#{gateway}
+    </select>
+
+    <!--通过编号查找信息-->
+    <select id="SelectByID" resultMap="AllTest">
+        <include refid="Calculation"/>
+        Calculation.Em_Equipment_name_id = #{id}
+    </select>
+
+    <!--通过接入点查找信息-->
+    <select id="SelectByAccess" resultMap="AllTest">
+        <include refid="Calculation"/>
+        Calculation.Access_name=#{AccessName}
+    </select>
+
+    <!--通过监测点查找信息-->
+    <select id="SelectByMonitorName" resultMap="AllTest">
+        <include refid="Calculation"/>
+        Calculation.Em_Monitor_name=#{MonitorName}
+    </select>
+
+    <!--通过计算方式查找信息-->
+    <select id="SelectByFormula" resultMap="AllTest">
+        <include refid="Calculation"/>
+        Calculation.Formula=#{Formula}
+    </select>
+
+    <!--通过标准值查询-->
+    <select id="SelectByStandardValue" resultMap="AllTest">
+        <include refid="Calculation"/>
+        Calculation.StandardValue=#{StandardValude}
+    </select>
+
+</mapper>
