@@ -1,9 +1,6 @@
 package com.shiyanshi.dashuju.config;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.annotation.Resource;
@@ -15,20 +12,14 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-import com.google.gson.Gson;
-import com.shiyanshi.dashuju.Mapper.WebscoketMapper;
-import com.shiyanshi.dashuju.Pojo.Equipment_message;
 import com.shiyanshi.dashuju.Pojo.WebSocketPojo;
-import com.shiyanshi.dashuju.Seriver.Imp.WebSocketImp;
 import com.shiyanshi.dashuju.Util.Util;
 import com.shiyanshi.dashuju.component.SchedulerTask;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 @ServerEndpoint(value = "/websocket/{sid}",configurator = SpringContextHelper.class)
 @Component
-@CrossOrigin(origins = "*",maxAge = 3600)
+//@CrossOrigin(origins = "*",maxAge = 3600)
 public class WebSocketServer {
 
     @Resource
@@ -82,23 +73,6 @@ public class WebSocketServer {
     public void onMessage(String message,Session session) {
         an = message;
         setAn(an);
-      /* SchedulerTask schedulerTask = new SchedulerTask();
-       schedulerTask.process();*/
-        //群发消息
-//        an=message;
-//            for (WebSocketServer item : webSocketSet)
-//                try {
-//
-////                    Timestamp times = new Timestamp(System.currentTimeMillis());
-////                    Date date = new Date();
-////                    System.out.println(times);
-//                    List<Equipment_message> websocket = util.websocket(an);
-//                    String ss = new Gson().toJson(websocket);       //强转为json
-//                    item.sendMessage(ss);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-
 
     }
 
