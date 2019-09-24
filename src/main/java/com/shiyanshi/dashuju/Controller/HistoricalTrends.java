@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class HistoricalTrends {
+public class  HistoricalTrends {
 
     @Autowired
     private HistorySeriver historySeriver;

@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import javax.swing.plaf.synth.SynthEditorPaneUI;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,16 @@ public class SchedulerTask {
             for (int i = 0; i < list.size(); i++) {
                 HAndM hAndM = list.get(i);              //将list中的值转化为具体的实体类对象
                 Equipment_messageS equipment_messageS = hAndMMapper.findOne(hAndM);
-                if (equipment_messageS.getTime1() == new Timestamp(System.currentTimeMillis())) {
+
+                Timestamp mysqlTime = equipment_messageS.getTime1();            //数据库存储时间
+
+                //处理时间格式
+                SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date();
+                Timestamp LocalTime = Timestamp.valueOf(f.format(date));       //本地时间
+
+
+                if (!(mysqlTime.before(LocalTime))&&!(mysqlTime.after(LocalTime))) {
                     List<Equipment_messageH> equipment_messagesH = hAndMMapper.findMax(hAndM);
                     Equipment_messageH equipment_messageH = equipment_messagesH.get(0);
                     hAndMMapper.InsertHour(equipment_messageH);
@@ -80,7 +90,15 @@ public class SchedulerTask {
             for (int i = 0; i < list.size(); i++) {
                 HAndMM hAndMM = list.get(i);              //将list中的值转化为具体的实体类对象
                 Equipment_messageSS equipment_messageSS = hAndMMapper.findOneM(hAndMM);
-                if(equipment_messageSS.getTime1() == new Timestamp(System.currentTimeMillis())) {
+
+                Timestamp mysqlTime1 = equipment_messageSS.getTime1();            //数据库存储时间
+
+                //处理时间格式
+                SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date1 = new Date();
+                Timestamp LocalTime1 = Timestamp.valueOf(f1.format(date1));       //本地时间
+
+                if(!(mysqlTime1.before(LocalTime1))&&!(mysqlTime1.after(LocalTime1))) {
                     List<Equipment_messageM> equipment_messagesM = hAndMMapper.findMaxM(hAndMM);
                     Equipment_messageM equipment_messageM = equipment_messagesM.get(0);
                     hAndMMapper.InsertMinute(equipment_messageM);

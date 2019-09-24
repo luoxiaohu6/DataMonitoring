@@ -19,6 +19,7 @@
         </collection>
 
         <collection property="calculation" column="idnum" ofType="com.shiyanshi.dashuju.Pojo.Calculation">
+            <id column="idnum" property="idnum"/>
             <result column="Gateway" property="Gateway"/>
             <result column="Access_name" property="Access_name"/>
             <result column="MaxValue1" property="MaxValue1"/>
@@ -49,14 +50,24 @@
     </insert>
 
 
+    <!--<update id="UpdateDataMonitor" parameterType="com.shiyanshi.dashuju.Pojo.Calculation">-->
+        <!--update Calculation set Gateway = #{gateway},Access_name = #{access_name},MaxValue1 = #{maxValue},MinValue = #{minValue},-->
+                               <!--StandardValue = #{standardValue},Formula = #{formula}-->
+                               <!--where Em_Equipment_name = #{em_Equipment_name} and Em_Monitor_name = #{em_Monitor_name}-->
+    <!--</update>-->
+
     <update id="UpdateDataMonitor" parameterType="com.shiyanshi.dashuju.Pojo.Calculation">
         update Calculation set Gateway = #{gateway},Access_name = #{access_name},MaxValue1 = #{maxValue},MinValue = #{minValue},
                                StandardValue = #{standardValue},Formula = #{formula}
-                               where Em_Equipment_name = #{em_Equipment_name} and Em_Monitor_name = #{em_Monitor_name}
+        where idnum = #{idnum}
     </update>
 
+    <!--<delete id="DelDataMonitor" parameterType="com.shiyanshi.dashuju.Pojo.Calculation">-->
+        <!--delete from Calculation where Em_Monitor_name = #{em_Monitor_name} and Em_Equipment_name= #{em_Equipment_name}-->
+    <!--</delete>-->
+
     <delete id="DelDataMonitor" parameterType="com.shiyanshi.dashuju.Pojo.Calculation">
-        delete from Calculation where Em_Monitor_name = #{em_Monitor_name} and Em_Equipment_name= #{em_Equipment_name}
+        delete from Calculation where idnum = #{idnum}
     </delete>
 
     <delete id="DelDataMonitorE" parameterType="com.shiyanshi.dashuju.Pojo.Equipment_message">

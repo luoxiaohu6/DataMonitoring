@@ -3,7 +3,11 @@ package com.shiyanshi.dashuju.Pojo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Calculation {
+import java.io.Serializable;
+
+public class Calculation implements Serializable {
+
+    private int idnum;
 
 //    @JsonProperty(value = "gateway")
     private String Gateway;
@@ -32,6 +36,14 @@ public class Calculation {
     private String Em_Monitor_name;
 
     private int Em_Monitor_id;
+
+    public int getIdnum() {
+        return idnum;
+    }
+
+    public void setIdnum(int idnum) {
+        this.idnum = idnum;
+    }
 
     public String getGateway() {
         return Gateway;

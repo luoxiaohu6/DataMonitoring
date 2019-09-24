@@ -10,4 +10,5 @@ public interface MonitorInsertSeriver {
     int UpdateDataMonitor(Calculation calculation);             //更新监测点
 
     int DelDataMonitor(Calculation calculation);           //删除监测点
+//    int DelDataMonitor(int idnum);                          //删除监测点
 }

@@ -2,9 +2,10 @@ package com.shiyanshi.dashuju.Pojo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Equipment_message {
+public class Equipment_message implements Serializable {
 
     private Equipment_Main equipment_main;
 

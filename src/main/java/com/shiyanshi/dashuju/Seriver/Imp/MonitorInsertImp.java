@@ -8,6 +8,7 @@ import com.shiyanshi.dashuju.Seriver.MonitorInsertSeriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -20,18 +21,7 @@ public class MonitorInsertImp implements MonitorInsertSeriver {
 
     @Override
     public int InsertDataMonitor(Calculation calculation) {
-////        monitorInsert.setTime(new Timestamp(new Date().getTime()));   //自动获取系统时间
-//        monitorInsertMapper.InsertDataMonitor(monitorInsert);
-//
-//        monitorInsert.setIdca(monitorInsert.getId());
-//        monitorInsert.setDNS_c(monitorInsert.getDNS());
-//        monitorInsert.setAccess_name_c(monitorInsert.getAccess_name());
-//
-////        System.out.println(monitorInsert.getDNS_c());
-////        System.out.println(monitorInsert.getIdca());
-////        System.out.println(monitorInsert.getMaxValue());
-//
-//        monitorInsertMapper.InsertDataMonitorC(monitorInsert);
+
         monitorInsertMapper.InsertDataMonitor(calculation);
 
 
@@ -61,6 +51,22 @@ public class MonitorInsertImp implements MonitorInsertSeriver {
 
         return 1;
     }
+
+//    @Override
+//    public int DelDataMonitor(int idnum) {
+//
+//        monitorInsertMapper.DelDataMonitor(idnum);
+//
+//        Equipment_message equipment_message = new Equipment_message();
+//
+//        equipment_message.setMonitor_name(calculation.getEm_Monitor_name());
+//        equipment_message.setMequipment_name(calculation.getEm_Equipment_name());
+//
+//        monitorInsertMapper.DelDataMonitorE(equipment_message);
+//
+//
+//        return 1;
+//    }
 
 
 }

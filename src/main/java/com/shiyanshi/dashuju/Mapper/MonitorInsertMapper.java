@@ -15,6 +15,7 @@ public interface MonitorInsertMapper {
     int UpdateDataMonitor(Calculation calculation);
 
     int DelDataMonitor(Calculation calculation);
+//    int DelDataMonitor(int  idnum);
 
     int DelDataMonitorE(Equipment_message equipment_message);
 }
