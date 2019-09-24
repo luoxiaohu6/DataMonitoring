@@ -1,5 +1,11 @@
 # DataMonitoring
+# 使用框架：springboot、mybatis
+# 使用的数据库：mysql、redis
+# 使用到的技术:quarter、websocket
+
 # 2019/7/25 18:33
+
+
 此项目以sprinboot为框架实现的数据检测系统的后端部分
 
 功能含：
